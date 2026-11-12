@@ -15,6 +15,7 @@
 // under the License.
 
 import ballerina/crypto;
+import ballerina/data.jsondata;
 import ballerina/http;
 import ballerina/io;
 import ballerina/lang.runtime;
@@ -28,6 +29,7 @@ const TRIGGER_TEST_WEBHOOK_BASE_URL = "test-webhookBaseUrl-value";
 
 isolated map<boolean> triggerFired = {};
 isolated map<json> boundPayloads = {};
+isolated map<json> boundJson = {};
 
 listener Listener triggerTestListener = check new ({webhookSecret: TRIGGER_TEST_SECRET, webhookBaseUrl: TRIGGER_TEST_WEBHOOK_BASE_URL}, TRIGGER_TEST_PORT);
 
@@ -35,54 +37,90 @@ final http:Client triggerClient = check new (string `http://localhost:${TRIGGER_
 
 service CallStatusService on triggerTestListener {
     isolated remote function onInitiated(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onInitiated"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onInitiated"] = true;
         }
     }
 
     isolated remote function onQueued(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onQueued"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onQueued"] = true;
         }
     }
 
     isolated remote function onRinging(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onRinging"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onRinging"] = true;
         }
     }
 
     isolated remote function onInProgress(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onInProgress"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onInProgress"] = true;
         }
     }
 
     isolated remote function onCompleted(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onCompleted"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onCompleted"] = true;
         }
     }
 
     isolated remote function onBusy(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onBusy"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onBusy"] = true;
         }
     }
 
     isolated remote function onFailed(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onFailed"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onFailed"] = true;
         }
     }
 
     isolated remote function onNoAnswer(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onNoAnswer"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onNoAnswer"] = true;
         }
     }
 
     isolated remote function onCanceled(CallStatusEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["CallStatusService.onCanceled"] = received;
+        }
         lock {
             triggerFired["CallStatusService.onCanceled"] = true;
         }
@@ -91,78 +129,130 @@ service CallStatusService on triggerTestListener {
 
 service SmsStatusService on triggerTestListener {
     isolated remote function onAccepted(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onAccepted"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onAccepted"] = true;
         }
     }
 
     isolated remote function onQueued(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onQueued"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onQueued"] = true;
         }
     }
 
     isolated remote function onSending(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onSending"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onSending"] = true;
         }
     }
 
     isolated remote function onSent(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onSent"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onSent"] = true;
         }
     }
 
     isolated remote function onFailed(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onFailed"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onFailed"] = true;
         }
     }
 
     isolated remote function onDelivered(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onDelivered"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onDelivered"] = true;
         }
     }
 
     isolated remote function onUndelivered(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onUndelivered"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onUndelivered"] = true;
         }
     }
 
     isolated remote function onReceiving(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onReceiving"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onReceiving"] = true;
         }
     }
 
     isolated remote function onReceived(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onReceived"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onReceived"] = true;
         }
     }
 
     isolated remote function onScheduled(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onScheduled"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onScheduled"] = true;
         }
     }
 
     isolated remote function onRead(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onRead"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onRead"] = true;
         }
     }
 
     isolated remote function onCanceled(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onCanceled"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onCanceled"] = true;
         }
     }
 
     isolated remote function onPartiallyDelivered(SmsStatusChangeEventWrapper payload) returns error? {
+        readonly & json received = jsondata:toJson(payload).cloneReadOnly();
+        lock {
+            boundJson["SmsStatusService.onPartiallyDelivered"] = received;
+        }
         lock {
             triggerFired["SmsStatusService.onPartiallyDelivered"] = true;
         }
@@ -210,6 +300,42 @@ function waitForDispatch(string trackerKey) returns boolean {
     return false;
 }
 
+function boundJsonOf(string trackerKey) returns json {
+    lock {
+        return boundJson[trackerKey].clone();
+    }
+}
+
+function deliveredEvent(json bound, json fixture) returns json {
+    return fixture is json[] && fixture.length() == 1 && bound is map<json>
+        ? fixture[0] : fixture;
+}
+
+function assertBindsFixture(json bound, json fixture, string at) {
+    if fixture is map<json> {
+        test:assertTrue(bound is map<json>, string `${at} should have bound to an object`);
+        if bound is map<json> {
+            foreach [string, json] [key, value] in fixture.entries() {
+                assertBindsFixture(bound[key], value, string `${at}.${key}`);
+            }
+        }
+    } else if fixture is json[] {
+        test:assertTrue(bound is json[] && bound.length() == fixture.length(),
+                string `${at} should have bound to an array of ${fixture.length()}`);
+        if bound is json[] && bound.length() == fixture.length() {
+            foreach int i in 0 ..< fixture.length() {
+                assertBindsFixture(bound[i], fixture[i], string `${at}[${i}]`);
+            }
+        }
+    } else if fixture is int|float|decimal && bound is int|float|decimal {
+        test:assertEquals(<decimal>bound, <decimal>fixture,
+                string `${at} should have bound unchanged`);
+    } else {
+        test:assertEquals(bound.toString(), fixture.toString(),
+                string `${at} should have bound unchanged`);
+    }
+}
+
 @test:Config {}
 function testCallStatusServiceInitiatedDispatch() returns error? {
     lock {
@@ -221,6 +347,9 @@ function testCallStatusServiceInitiatedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onInitiated"], "Only CallStatusService.onInitiated should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/initiated.json`);
+    json received = boundJsonOf("CallStatusService.onInitiated");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -234,6 +363,9 @@ function testCallStatusServiceQueuedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onQueued"], "Only CallStatusService.onQueued should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/queued.json`);
+    json received = boundJsonOf("CallStatusService.onQueued");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -247,6 +379,9 @@ function testCallStatusServiceRingingDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onRinging"], "Only CallStatusService.onRinging should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/ringing.json`);
+    json received = boundJsonOf("CallStatusService.onRinging");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -260,6 +395,9 @@ function testCallStatusServiceInProgressDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onInProgress"], "Only CallStatusService.onInProgress should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/in-progress.json`);
+    json received = boundJsonOf("CallStatusService.onInProgress");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -273,6 +411,9 @@ function testCallStatusServiceCompletedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onCompleted"], "Only CallStatusService.onCompleted should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/completed.json`);
+    json received = boundJsonOf("CallStatusService.onCompleted");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -286,6 +427,9 @@ function testCallStatusServiceBusyDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onBusy"], "Only CallStatusService.onBusy should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/busy.json`);
+    json received = boundJsonOf("CallStatusService.onBusy");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -299,6 +443,9 @@ function testCallStatusServiceFailedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onFailed"], "Only CallStatusService.onFailed should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/failed.json`);
+    json received = boundJsonOf("CallStatusService.onFailed");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -312,6 +459,9 @@ function testCallStatusServiceNoAnswerDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onNoAnswer"], "Only CallStatusService.onNoAnswer should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/no-answer.json`);
+    json received = boundJsonOf("CallStatusService.onNoAnswer");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -325,6 +475,9 @@ function testCallStatusServiceCanceledDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["CallStatusService.onCanceled"], "Only CallStatusService.onCanceled should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/callStatus/canceled.json`);
+    json received = boundJsonOf("CallStatusService.onCanceled");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "CallStatusEventWrapper");
 }
 
 @test:Config {}
@@ -338,6 +491,9 @@ function testSmsStatusServiceAcceptedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onAccepted"], "Only SmsStatusService.onAccepted should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/accepted.json`);
+    json received = boundJsonOf("SmsStatusService.onAccepted");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -351,6 +507,9 @@ function testSmsStatusServiceQueuedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onQueued"], "Only SmsStatusService.onQueued should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/queued.json`);
+    json received = boundJsonOf("SmsStatusService.onQueued");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -364,6 +523,9 @@ function testSmsStatusServiceSendingDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onSending"], "Only SmsStatusService.onSending should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/sending.json`);
+    json received = boundJsonOf("SmsStatusService.onSending");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -377,6 +539,9 @@ function testSmsStatusServiceSentDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onSent"], "Only SmsStatusService.onSent should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/sent.json`);
+    json received = boundJsonOf("SmsStatusService.onSent");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -390,6 +555,9 @@ function testSmsStatusServiceFailedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onFailed"], "Only SmsStatusService.onFailed should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/failed.json`);
+    json received = boundJsonOf("SmsStatusService.onFailed");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -403,6 +571,9 @@ function testSmsStatusServiceDeliveredDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onDelivered"], "Only SmsStatusService.onDelivered should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/delivered.json`);
+    json received = boundJsonOf("SmsStatusService.onDelivered");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -416,6 +587,9 @@ function testSmsStatusServiceUndeliveredDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onUndelivered"], "Only SmsStatusService.onUndelivered should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/undelivered.json`);
+    json received = boundJsonOf("SmsStatusService.onUndelivered");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -429,6 +603,9 @@ function testSmsStatusServiceReceivingDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onReceiving"], "Only SmsStatusService.onReceiving should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/receiving.json`);
+    json received = boundJsonOf("SmsStatusService.onReceiving");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -442,6 +619,9 @@ function testSmsStatusServiceReceivedDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onReceived"], "Only SmsStatusService.onReceived should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/received.json`);
+    json received = boundJsonOf("SmsStatusService.onReceived");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -455,6 +635,9 @@ function testSmsStatusServiceScheduledDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onScheduled"], "Only SmsStatusService.onScheduled should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/scheduled.json`);
+    json received = boundJsonOf("SmsStatusService.onScheduled");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -468,6 +651,9 @@ function testSmsStatusServiceReadDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onRead"], "Only SmsStatusService.onRead should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/read.json`);
+    json received = boundJsonOf("SmsStatusService.onRead");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -481,6 +667,9 @@ function testSmsStatusServiceCanceledDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onCanceled"], "Only SmsStatusService.onCanceled should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/canceled.json`);
+    json received = boundJsonOf("SmsStatusService.onCanceled");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
 @test:Config {}
@@ -494,5 +683,8 @@ function testSmsStatusServicePartiallyDeliveredDispatch() returns error? {
     lock {
         test:assertEquals(triggerFired.keys(), ["SmsStatusService.onPartiallyDelivered"], "Only SmsStatusService.onPartiallyDelivered should have fired");
     }
+    json fixture = check io:fileReadJson(string `${TRIGGER_PAYLOAD_DIR}/smsStatus/partially_delivered.json`);
+    json received = boundJsonOf("SmsStatusService.onPartiallyDelivered");
+    assertBindsFixture(received, deliveredEvent(received, fixture), "SmsStatusChangeEventWrapper");
 }
 
